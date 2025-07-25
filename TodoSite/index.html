@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern To-Do App</title>
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/web/icons8-to-do-list-bubbles-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/web/icons8-to-do-list-bubbles-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/web/icons8-to-do-list-bubbles-57.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/web/icons8-to-do-list-bubbles-96.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/web/icons8-to-do-list-bubbles-60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/web/icons8-to-do-list-bubbles-72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/web/icons8-to-do-list-bubbles-76.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/web/icons8-to-do-list-bubbles-70.png">
+
+    <link rel="shortcut icon" href="/web/icons8-to-do-list-bubbles-96.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto p-4">
+        <header class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-bold text-indigo-600">📝 My To-Do List</h1>
+            <button id="addTaskBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                <i class="fas fa-plus"></i> Add Task
+            </button>
+        </header>
+
+        <div class="mb-4">
+            <input id="searchInput" type="text" placeholder="Search tasks..."
+                class="w-full px-4 py-2 border rounded-lg" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl shadow p-4">
+                <h2 class="text-xl font-semibold text-blue-600 mb-2">All Tasks</h2>
+                <ul id="allTasks" class="space-y-2 min-h-[100px]"></ul>
+            </div>
+            <div class="bg-white rounded-xl shadow p-4">
+                <h2 class="text-xl font-semibold text-yellow-500 mb-2">Pending Tasks</h2>
+                <ul id="pendingTasks" class="space-y-2 min-h-[100px]"></ul>
+            </div>
+            <div class="bg-white rounded-xl shadow p-4">
+                <h2 class="text-xl font-semibold text-green-600 mb-2">Completed Tasks</h2>
+                <ul id="completedTasks" class="space-y-2 min-h-[100px]"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-40">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h3 id="modalTitle" class="text-lg font-bold text-indigo-600 mb-4">Add Task</h3>
+            <form id="taskForm" class="space-y-3">
+                <input type="text" id="taskTitle" placeholder="Title" required
+                    class="w-full px-4 py-2 border rounded-lg" />
+                <textarea id="taskDescription" placeholder="Description"
+                    class="w-full px-4 py-2 border rounded-lg"></textarea>
+                <select id="taskPriority" class="w-full px-4 py-2 border rounded-lg">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <input type="date" id="taskDueDate" class="w-full px-4 py-2 border rounded-lg" />
+                <input type="hidden" id="editingIndex" />
+                <div class="flex justify-end space-x-2">
+                    <button type="button" id="cancelBtn"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                    <button type="submit"
+                        class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+            <p id="confirmMessage" class="text-lg mb-4 text-gray-800 font-medium"></p>
+            <div class="flex justify-end gap-2">
+                <button id="cancelConfirm" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                <button id="confirmAction" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow hidden z-[999]">
+    </div>
+
+</body>
+
+</html>
+<script src="todo.js"></script>
